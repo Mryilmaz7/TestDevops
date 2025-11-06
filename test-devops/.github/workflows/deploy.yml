@@ -32,4 +32,4 @@ jobs:
             sudo docker stop app || true
             sudo docker rm app || true
             sudo docker build -t testdevops .
-            sudo docker run -d -p 5000:5000 --name app testdevops
+            sudo docker run -d -p 3000:3000 --name app testdevops
