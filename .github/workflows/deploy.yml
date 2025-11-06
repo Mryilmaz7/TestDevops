@@ -21,15 +21,27 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu
+
+            # Repo yoksa klonla
             if [ ! -d "TestDevops" ]; then
               git clone https://github.com/Mryilmaz7/TestDevops.git
             fi
+
             cd TestDevops
             git pull origin main
+
+            # Docker kurulumu
             sudo apt update -y
             sudo apt install docker.io -y
             sudo systemctl start docker
+
+            # Eski container ve image'ları temizle
             sudo docker stop app || true
             sudo docker rm app || true
+            sudo docker image prune -af || true
+
+            # Yeni image build et
             sudo docker build -t testdevops .
+
+            # Yeni container’ı ayağa kaldır
             sudo docker run -d -p 3000:3000 --name app testdevops
