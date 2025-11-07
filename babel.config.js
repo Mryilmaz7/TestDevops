@@ -1,6 +1,6 @@
+// babel.config.js
 module.exports = function (api) {
     const isTest = api.env('test');
-
     if (isTest) {
         return {
             presets: [
@@ -11,6 +11,6 @@ module.exports = function (api) {
         };
     }
 
-    // Test dışı ortamlarda (ör. build, start) Babel devre dışı
+    // Build sırasında hiçbir Babel config'i dönme
     return {};
 };
